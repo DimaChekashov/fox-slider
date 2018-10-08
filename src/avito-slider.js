@@ -10,7 +10,7 @@ SpecSlider.prototype.genTabs = function(tab, img) {
   if(img.childElementCount >= 5) {
     var imgSize = 5;
   } else {
-    var imgSize = img.childElementCount + 1;
+    var imgSize = img.childElementCount;
   }
   function createElem(index) {
     var widthElem = (240 - 10) / imgSize;
