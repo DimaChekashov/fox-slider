@@ -1,0 +1,53 @@
+.main-img{
+  width: 240px;
+  height: 170px;
+  overflow: hidden;
+  position: relative;
+}
+.main-img img{
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+}
+.main-img:hover .img-tabs{
+  opacity: 1;
+}
+.img-tabs{
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  bottom: 4px;
+  left: 5px;
+  z-index: 10;
+  height: calc(100% - 4px);
+  width: calc(100% - 10px);
+  opacity: 0;
+  transition: opacity 0.2s ease 0.02s;
+  -webkit-transition: opacity 0.2s ease 0.02s;
+}
+.img-tab{
+  display: inline-block;
+  height: calc(100% - 4px);
+  width: 36.33px;
+  cursor: pointer;
+  border-bottom: 3px solid #d9dee4;
+  border-radius: 3px;
+  border-left: 2px solid transparent;
+  border-right: 2px solid transparent;
+}
+.img-tab:hover{
+  border-bottom-color: #f04511;
+}
+
+.img-sub{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.2s ease 0.2s;
+  -webkit-transition: opacity 0.2s ease 0.2s;
+}
+.img-hover{
+  opacity: 1;
+}
