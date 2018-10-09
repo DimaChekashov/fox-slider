@@ -38,7 +38,6 @@
 .img-tab:hover{
   border-bottom-color: #f04511;
 }
-
 .img-sub{
   position: absolute;
   top: 0;
@@ -49,7 +48,6 @@
 .img-hover{
   display: block;
 }
-
 .main-img__last{
   position: absolute;
   left: 0;

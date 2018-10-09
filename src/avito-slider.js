@@ -5,7 +5,7 @@ function SpecSlider(num, containerName) {
   this.containerTabs = document.getElementsByClassName(containerName)[num].children[1];
   this.containerImg = document.getElementsByClassName(containerName)[num].children[2];
   this.lastImg = document.getElementsByClassName(containerName)[num].children[3]
-  this.loaded = (this.container.getAttribute('completed') === 'false');
+  this.loaded = (this.container.getAttribute('completed') === 'false' || this.container.getAttribute('completed') === null);
 }
 
 SpecSlider.prototype.genTabs = function(tab, img) {
@@ -52,7 +52,6 @@ SpecSlider.prototype.getLastImg = function(tab, img, lastImg) {
     tab.children[4].addEventListener( "mouseout", mouseOutLast);
   }
 }
-
 
 function specSlider() {
   var slidersCount = document.getElementsByClassName('main-img').length;
