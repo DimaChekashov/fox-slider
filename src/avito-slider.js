@@ -4,6 +4,7 @@ function SpecSlider(num, containerName) {
   this.container = document.getElementsByClassName(containerName)[num];
   this.containerTabs = document.getElementsByClassName(containerName)[num].children[1];
   this.containerImg = document.getElementsByClassName(containerName)[num].children[2];
+  this.lastImg = document.getElementsByClassName(containerName)[num].children[3]
   this.loaded = (this.container.getAttribute('completed') === 'false');
 }
 
@@ -37,8 +38,19 @@ SpecSlider.prototype.hoverTabs = function(tab, img) {
   tab.addEventListener( "mouseout", mouseOut);
 }
 
-SpecSlider.prototype.lastImg = function(tab, img) {
-  
+SpecSlider.prototype.getLastImg = function(tab, img, lastImg) {
+  var sizeImg = img.childElementCount;
+  lastImg.children[0].children[1].innerText = sizeImg - 5;
+  if(sizeImg > 5) {
+    function mouseOverLast() {
+      lastImg.classList.add('show-last');
+    }
+    function mouseOutLast() {
+      lastImg.classList.remove('show-last');
+    }
+    tab.children[4].addEventListener( "mouseover", mouseOverLast);
+    tab.children[4].addEventListener( "mouseout", mouseOutLast);
+  }
 }
 
 
@@ -54,6 +66,7 @@ function specSlider() {
     if(item.slide.loaded) {
       item.slide.genTabs(item.slide.containerTabs, item.slide.containerImg);
       item.slide.hoverTabs(item.slide.containerTabs, item.slide.containerImg);
+      item.slide.getLastImg(item.slide.containerTabs, item.slide.containerImg, item.slide.lastImg);
       item.slide.container.setAttribute('completed', true);
       item.slide.loaded = true;
     } else {
