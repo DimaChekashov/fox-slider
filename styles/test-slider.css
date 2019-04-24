@@ -1,0 +1,45 @@
+.test-slider {
+    width: 600px;
+    display: block;
+    margin: 0 auto;
+}
+
+.test-slider__images {
+    width: 600px;
+    height: 400px;
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+}
+
+.test-slider__images img {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: visibility 0.02s, 
+                opacity 2s ease 0.02s;
+}
+
+.test-slider__images .img-show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.test-slider-actions {
+    display: flex;
+}
+
+.test-slider__prev {
+    width: 50%;
+    height: 50px;
+    text-align: center;
+
+}
+
+.test-slider__next {
+    width: 50%;
+    height: 50px;
+    text-align: center;
+}
