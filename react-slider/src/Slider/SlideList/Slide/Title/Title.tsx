@@ -4,8 +4,6 @@ interface Props {
     title: string;
 }
 
-const Title: React.FC<Props> = ({title}) => {
-    return <div className="slide-title">{title}</div>;
-}
+const Title: React.FC<Props> = ({title}) => <div className="slide-title">{title}</div>;
 
 export default Title;

@@ -1,9 +1,9 @@
 import { createContext, useEffect, useState } from "react";
-import "Slider.scss";
 import Arrows from "./Arrows/Arrows";
 import Dots from "./Dots/Dots";
 import SlideList from "./SlideList/SlideList";
-import { SliderContext as ISliderContext } from "./types";
+import { Slide, SliderContext as ISliderContext } from "./types";
+import "./Slider.scss";
 
 interface Props {
     autoPlay: boolean;
@@ -15,16 +15,41 @@ interface Props {
 export const SliderContext = createContext<ISliderContext>({} as ISliderContext);
 
 const Slider: React.FC<Props> = ({autoPlay, autoPlayTime, width, height}) => {
-    const [items, setItems] = useState([]);
-    const [slide, setSlide] = useState(0);
-    const [touchPosition, setTouchPosition] = useState(null)
+    const [items, setItems] = useState<Slide[]>([]);
+    const [slide, setSlide] = useState<number>(0);
+    const [touchPosition, setTouchPosition] = useState<number | null>(null);
 
     useEffect(() => {
-        const loadData = async () => {
-            const images = await getImages();
-            setItems(images);
-        };
-        loadData();
+        setItems([
+            {
+                index: 1,
+                slide: {
+                    title: "accusamus beatae ad facilis cum similique qui sunt",
+                    url: "https://via.placeholder.com/600/92c952"
+                }
+            },
+            {
+                index: 2,
+                slide: {
+                    title: "reprehenderit est deserunt velit ipsam",
+                    url: "https://via.placeholder.com/600/771796"
+                }
+            },
+            {
+                index: 3,
+                slide: {
+                    title: "officia porro iure quia iusto qui ipsa ut modi",
+                    url: "https://via.placeholder.com/600/24f355"
+                }
+            },
+            {
+                index: 4,
+                slide: {
+                    title: "culpa odio esse rerum omnis laboriosam voluptate repudiandae",
+                    url: "https://via.placeholder.com/600/d32776"
+                }
+            },
+        ]);
     }, []);
 
     const changeSlide = (direction: number = 1) => {
@@ -36,16 +61,14 @@ const Slider: React.FC<Props> = ({autoPlay, autoPlayTime, width, height}) => {
 
     const goToSlide = (position: number) => setSlide(position % items.length);
 
-    const handleTouchStart = (e: any) => {
+    const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
         const touchDown = e.touches[0].clientX;
 
         setTouchPosition(touchDown);
     }
 
-    const handleTouchMove = (e: any) => {
-        if (touchPosition === null) {
-            return;
-        }
+    const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+        if (touchPosition === null) return;
 
         const currentPosition = e.touches[0].clientX;
         const direction = touchPosition - currentPosition;

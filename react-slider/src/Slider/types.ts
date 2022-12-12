@@ -5,3 +5,11 @@ export interface SliderContext {
     slideNumber: number;
     items: any;
 }
+
+export interface Slide {
+    index: number;
+    slide: {
+        title: string;
+        url: string;
+    };
+}

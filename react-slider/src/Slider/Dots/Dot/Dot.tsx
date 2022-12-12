@@ -3,7 +3,7 @@ import { SliderContext } from "../../Slider";
 import "./Dot.scss";
 
 interface Props {
-    position: number
+    position: number;
 }
 
 const Dot: React.FC<Props> = ({position}) => {

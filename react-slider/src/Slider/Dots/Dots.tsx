@@ -11,7 +11,6 @@ const Dots: React.FC = () => {
         for (let i = 0; i < slidesCount; i++) {
             dots.push(<Dot key={`dot-${i}`} position={i} />);
         }
-
         return dots;
     };
 

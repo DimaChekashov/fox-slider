@@ -5,8 +5,6 @@ interface Props {
     alt: string;
 }
 
-const Image: React.FC<Props> = ({src, alt}) => {
-    return <img src={src} alt={alt} className="slide-image" />;
-}
+const Image: React.FC<Props> = ({src, alt}) => <img src={src} alt={alt} className="slide-image" />;
 
 export default Image;

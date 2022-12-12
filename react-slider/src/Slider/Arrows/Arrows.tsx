@@ -7,8 +7,8 @@ const Arrows: React.FC = () => {
 
     return (
         <div className="arrows">
-            <div className="arrow left" onClick={() => changeSlide(-1)} />
-            <div className="arrow right" onClick={() => changeSlide(1)} />
+            <div className="arrow left" onClick={() => changeSlide(-1)}>&lsaquo;</div>
+            <div className="arrow right" onClick={() => changeSlide(1)}>&rsaquo;</div>
         </div>
     );
 }
