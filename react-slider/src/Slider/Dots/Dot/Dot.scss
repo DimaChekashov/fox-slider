@@ -1,0 +1,11 @@
+.dot {
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    cursor: pointer;
+    &.selected {
+        background-color: #000000;
+    }
+}

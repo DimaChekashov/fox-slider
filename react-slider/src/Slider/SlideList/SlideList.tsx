@@ -5,16 +5,16 @@ import Slide from "./Slide/Slide";
 import "./SlideList.scss";
 
 const SlideList: React.FC = () => {
-    const { slideNumber, items } = useContext(SliderContext);
+    // const { slideNumber, items } = useContext(SliderContext);
 
     return (
         <div
             className="slide-list"
-            style={{ transform: `translateX(-${slideNumber * 100}%)` }}
+            // style={{ transform: `translateX(-${slideNumber * 100}%)` }}
         >
-            {items.map(({slide, index}: ISlide) => (
-                <Slide key={index} data={slide} />
-            ))}
+            {/* {items.map((slide: ISlide) => (
+                <Slide key={slide.index} data={slide} />
+            ))} */}
         </div>
     );
 }

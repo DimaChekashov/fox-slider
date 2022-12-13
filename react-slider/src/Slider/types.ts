@@ -3,7 +3,6 @@ export interface SliderContext {
     changeSlide: (direction: number) => void;
     slidesCount: number;
     slideNumber: number;
-    items: any;
 }
 
 export interface Slide {

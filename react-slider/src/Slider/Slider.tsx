@@ -1,8 +1,8 @@
 import { createContext, useEffect, useState } from "react";
 import Arrows from "./Arrows/Arrows";
 import Dots from "./Dots/Dots";
-import SlideList from "./SlideList/SlideList";
 import { Slide, SliderContext as ISliderContext } from "./types";
+import SlideComponent from "./SlideList/Slide/Slide";
 import "./Slider.scss";
 
 interface Props {
@@ -17,7 +17,7 @@ export const SliderContext = createContext<ISliderContext>({} as ISliderContext)
 const Slider: React.FC<Props> = ({autoPlay, autoPlayTime, width, height}) => {
     const [items, setItems] = useState<Slide[]>([]);
     const [slide, setSlide] = useState<number>(0);
-    const [touchPosition, setTouchPosition] = useState<number | null>(null);
+    const [animation, setAnimation] = useState<boolean>(true);
 
     useEffect(() => {
         setItems([
@@ -52,37 +52,48 @@ const Slider: React.FC<Props> = ({autoPlay, autoPlayTime, width, height}) => {
         ]);
     }, []);
 
+    const preloadImages = () => {
+        const prevItemIndex = slide - 1 < 0 ? items.length - 1 : slide - 1;
+        const nextItemIndex = (slide + 1) % items.length;
+
+        new Image().src = items[slide].slide.url;
+        new Image().src = items[prevItemIndex].slide.url;
+        new Image().src = items[nextItemIndex].slide.url;
+    }
+
+    useEffect(() => {
+        if (items.length) preloadImages();
+    }, [slide, items]);
+
     const changeSlide = (direction: number = 1) => {
+        setAnimation(false);
         const slideNumber: number = (slide + direction < 0) ? 
             items.length - 1 : (slide + direction) % items.length;
 
+
         setSlide(slideNumber);
+
+        const timeout = setTimeout(() => {
+            setAnimation(true);
+        }, 0);
+
+        return () => {
+            clearTimeout(timeout)
+        }
     };
 
-    const goToSlide = (position: number) => setSlide(position % items.length);
+    const goToSlide = (position: number) => {
+        setAnimation(false);
+        setSlide(position % items.length);
 
-    const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-        const touchDown = e.touches[0].clientX;
+        const timeout = setTimeout(() => {
+           setAnimation(true);
+        }, 0);
 
-        setTouchPosition(touchDown);
-    }
-
-    const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-        if (touchPosition === null) return;
-
-        const currentPosition = e.touches[0].clientX;
-        const direction = touchPosition - currentPosition;
-
-        if (direction > 10) {
-            changeSlide(1);
+        return () => {
+            clearTimeout(timeout)
         }
-
-        if (direction < -10) {
-            changeSlide(-1);
-        }
-
-        setTouchPosition(null);
-    }
+    };
 
     useEffect(() => {
         if (!autoPlay) return;
@@ -95,28 +106,25 @@ const Slider: React.FC<Props> = ({autoPlay, autoPlayTime, width, height}) => {
             clearInterval(interval);
         };
     }, [items.length, slide]);
-
     
     return (
-        <div
-            style={{ width, height }}
-            className="slider"
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-        >
-        <SliderContext.Provider
-            value={{
-                goToSlide,
-                changeSlide,
-                slidesCount: items.length,
-                slideNumber: slide,
-                items,
-            }}
-        >
-            <Arrows />
-            <SlideList />
-            <Dots />
-        </SliderContext.Provider>
+        <div style={{ width, height }} className="slider">
+            <SliderContext.Provider
+                value={{
+                    goToSlide,
+                    changeSlide,
+                    slidesCount: items.length,
+                    slideNumber: slide,
+                }}
+            >
+                <Arrows />
+                {
+                items.length ? (
+                    <SlideComponent data={items[slide]} animation={animation} />
+                ) : null
+                }
+                <Dots />
+            </SliderContext.Provider>
         </div>
     )
 }
